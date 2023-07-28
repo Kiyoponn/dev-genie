@@ -1,4 +1,3 @@
-import AuthContextProvider from '@/contexts/firebaseContext'
 import { ThemeProvider } from '@/contexts/themeProvider'
 import { fontSans } from '@/lib/fonts'
 import { cn } from '@/lib/utils'
@@ -25,7 +24,7 @@ export default function RootLayout({
 				)}
 			>
 				<ThemeProvider attribute='class' defaultTheme='system' enableSystem>
-					<AuthContextProvider>{children}</AuthContextProvider>
+					{children}
 				</ThemeProvider>
 			</body>
 		</html>

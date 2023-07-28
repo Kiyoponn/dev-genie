@@ -3,7 +3,6 @@
 import { useEffect } from 'react'
 
 import { ThemeToggle } from './themeToggle'
-import AuthButton from '@/components/authButton'
 import { Separator } from '@/components/ui/seprator'
 
 import { fontSansCD } from '@/lib/fonts'
@@ -35,7 +34,6 @@ export default function Nav() {
         </h1>
         <div className="flex gap-4 items-center">
           <ThemeToggle />
-          <AuthButton />
         </div>
       </nav>
       <Separator />

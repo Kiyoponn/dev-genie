@@ -1,17 +1,9 @@
-import Insights from './insights'
 import { Badge } from '@/components/ui/badge'
 import { fontSansCD } from '@/lib/fonts'
 import { cn } from '@/lib/utils'
-import { DocumentData } from 'firebase/firestore'
 import { GithubIcon } from 'lucide-react'
 
-export default function Header({
-  count,
-  usersList,
-}: {
-  count: number
-  usersList: DocumentData[]
-}) {
+export default function Header() {
   return (
     <header className="flex max-w-2xl px-1 mx-auto py-14 flex-col justify-center items-center text-center">
       <a
@@ -35,7 +27,6 @@ export default function Header({
       >
         Craft a Standout Profile with AI Assistance
       </h1>
-      <Insights count={count} usersList={usersList} />
     </header>
   )
 }

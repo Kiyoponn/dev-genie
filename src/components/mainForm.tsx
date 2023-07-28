@@ -3,7 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useCompletion } from 'ai/react'
 import { ArrowRight } from 'lucide-react'
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { useSpinDelay } from 'spin-delay'
@@ -38,21 +38,13 @@ import { Slider } from '@/components/ui/slider'
 import { Textarea } from '@/components/ui/textarea'
 
 import { SpinnerDots } from './icons'
-import { useAuth } from '@/contexts/firebaseContext'
-import { incrementGenerateCount } from '@/lib/firebaseHelper'
-import { formSchema } from '@/lib/formSchema'
 import { formDefaultValue, placeholderObj } from '@/lib/data'
+import { formSchema } from '@/lib/formSchema'
 
 type formData = z.infer<typeof formSchema>
 
 export default function MainForm() {
-  // Auth Data
-  const { user, isAuthReady } = useAuth()
-
-  // Generated Content ref for scrolling
   const targetRef = useRef<null | HTMLElement>(null)
-
-  // Scrolling to Response Generated
   const scrollToOutput = () => {
     setTimeout(() => {
       if (targetRef.current) {
@@ -76,7 +68,6 @@ export default function MainForm() {
       mode: form.getValues('mode'),
       characters: form.getValues('characters'),
       creativity: form.getValues('creativity') || '0.9',
-      uid: user?.uid || '127.0.0.1',
     },
     onResponse: (res) => {
       if (res.status === 429) {
@@ -89,17 +80,11 @@ export default function MainForm() {
     onError: (error) => {
       console.log(error)
     },
-    onFinish: () => {
-      incrementGenerateCount()
-    },
   })
 
   // Functions
   const onSubmit = async (data: formData) => {
     try {
-      if (!user) {
-        return toast.error('Please login to generate.')
-      }
       await complete(data?.description)
     } catch (error) {
       console.log(error)
@@ -280,7 +265,7 @@ export default function MainForm() {
 
             {/* Submit button */}
             <Button
-              disabled={showSpinner || !isAuthReady}
+              disabled={showSpinner}
               type="submit"
               size={'lg'}
               className="w-full"
