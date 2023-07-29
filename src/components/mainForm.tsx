@@ -336,7 +336,7 @@ export default function MainForm() {
 				className='text-center text-sm max-w-2xl mx-auto h-16 sm:h-20 w-full sm:pt-2 pt-4 flex sm:flex-row flex-col justify-center items-center px-3 space-y-3 sm:mb-0 mb-3'
 			>
 				<p>
-					Developed by{' '}
+					Powered by{' '}
 					<a
 						className='font-bold underline'
 						href='https://sdk.vercel.ai/docs'
@@ -345,7 +345,7 @@ export default function MainForm() {
 					>
 						VercelAI SDK
 					</a>{' '}
-					with{' '}
+					and{' '}
 					<a
 						className='font-bold underline'
 						href='https://cohere.com/'
