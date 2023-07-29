@@ -50,7 +50,6 @@ export default function MainForm() {
     }
   }
 
-  // React Hook Form
   const form = useForm<formData>({
     defaultValues: formDefaultValue,
     resolver: zodResolver(formSchema),
@@ -58,7 +57,6 @@ export default function MainForm() {
 
   const { errors, isSubmitting } = form.formState
 
-  // Vercel AI SDK
   const { completion, complete, isLoading } = useCompletion({
     body: {
       tone: form.getValues('tone') || 'professional',
@@ -86,7 +84,6 @@ export default function MainForm() {
     }
   })
 
-  // Functions
   const onSubmit = async (data: formData) => {
     try {
       await complete(data?.description)
@@ -95,7 +92,6 @@ export default function MainForm() {
     }
   }
 
-  // Spin delay for spinner
   const showSpinner = useSpinDelay(isLoading || isSubmitting)
 
   return (
@@ -331,11 +327,11 @@ export default function MainForm() {
           Developed by{' '}
           <a
             className="font-bold underline"
-            href="https://canwebe.in/"
+            href="https://sdk.vercel.ai/docs"
             target="_blank"
             rel="noopener noreferrer"
           >
-            CanWeBe!
+            VercelAI SDK
           </a>{' '}
           with{' '}
           <a

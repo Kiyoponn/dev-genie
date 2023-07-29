@@ -20,7 +20,6 @@ export async function POST(req: Request) {
     stream: true,
   })
 
-  // Fetching POST request to cohere api
   const response = await fetch('https://api.cohere.ai/generate', {
     method: 'POST',
     headers: {

@@ -7,7 +7,7 @@ export default function Header() {
   return (
     <header className="flex max-w-2xl px-1 mx-auto py-14 flex-col justify-center items-center text-center">
       <a
-        href="https://github.com/canwebe/devGenie"
+        href="https://github.com/Kiyoponn/dev-genie"
         target="_blank"
         rel="noopener noreferrer"
       >
