@@ -6,12 +6,12 @@ import ToastClient from '@/components/toastClient'
 export const revalidate = 60
 
 export default async function Home() {
-  return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
-      <Header />
-      <MainForm />
-      <ToastClient />
-    </div>
-  )
+	return (
+		<div className='min-h-screen flex flex-col'>
+			<Navbar />
+			<Header />
+			<MainForm />
+			<ToastClient />
+		</div>
+	)
 }

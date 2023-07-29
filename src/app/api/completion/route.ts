@@ -5,33 +5,33 @@ import { CohereStream, StreamingTextResponse } from 'ai'
 export const runtime = 'edge'
 
 export async function POST(req: Request) {
-  const data: Data = await req.json()
+	const data: Data = await req.json()
 
-  const { prompt, mode, tone, creativity, characters } = data
+	const { prompt, mode, tone, creativity, characters } = data
 
-  const promptText = getPromt(mode, tone, characters, prompt)
+	const promptText = getPromt(mode, tone, characters, prompt)
 
-  const body = JSON.stringify({
-    model: 'command-xlarge-nightly',
-    prompt: promptText,
-    return_likelihoods: 'NONE',
-    max_tokens: 250,
-    temperature: Number(creativity),
-    stream: true,
-  })
+	const body = JSON.stringify({
+		model: 'command-xlarge-nightly',
+		prompt: promptText,
+		return_likelihoods: 'NONE',
+		max_tokens: 250,
+		temperature: Number(creativity),
+		stream: true
+	})
 
-  const response = await fetch('https://api.cohere.ai/generate', {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${process.env.COHERE_API_KEY}`,
-      'Cohere-Version': '2022-12-06',
-    },
-    body,
-  })
+	const response = await fetch('https://api.cohere.ai/generate', {
+		method: 'POST',
+		headers: {
+			Accept: 'application/json',
+			'Content-Type': 'application/json',
+			Authorization: `Bearer ${process.env.COHERE_API_KEY}`,
+			'Cohere-Version': '2022-12-06'
+		},
+		body
+	})
 
-  const stream = CohereStream(response)
+	const stream = CohereStream(response)
 
-  return new StreamingTextResponse(stream)
+	return new StreamingTextResponse(stream)
 }
