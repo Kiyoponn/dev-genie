@@ -38,19 +38,16 @@ import { Slider } from '@/components/ui/slider'
 import { Textarea } from '@/components/ui/textarea'
 
 import { SpinnerDots } from './icons'
-import { formDefaultValue, placeholderObj } from '@/lib/data'
+import { formDefaultValue, placeholderData } from '@/lib/data'
 import { formSchema } from '@/lib/formSchema'
-
-type formData = z.infer<typeof formSchema>
+import { formData } from '@/lib/types'
 
 export default function MainForm() {
   const targetRef = useRef<null | HTMLElement>(null)
   const scrollToOutput = () => {
-    setTimeout(() => {
-      if (targetRef.current) {
-        targetRef.current.scrollIntoView({ behavior: 'smooth' })
-      }
-    }, 500)
+    if (targetRef.current) {
+      targetRef.current.scrollIntoView({ behavior: 'smooth' })
+    }
   }
 
   // React Hook Form
@@ -71,15 +68,22 @@ export default function MainForm() {
     },
     onResponse: (res) => {
       if (res.status === 429) {
-        toast.error(
-          'Oops! You have reached your max limit. Please try again 2 min later.'
-        )
+        toast.custom(() => (
+          <div className='text-sm flex items-center gap-1.5 w-[400px] font-medium mx-auto bg-red-100 text-red-500 p-4 rounded-md'>
+            <div data-icon>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" height="20" width="20">
+                <title>Error Icon</title>
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-5a.75.75 0 01.75.75v4.5a.75.75 0 01-1.5 0v-4.5A.75.75 0 0110 5zm0 10a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <div data-title>Oops! You have already reached your maximum limit.</div>
+          </div>
+        ))
       }
+    },
+    onFinish: () => {
       scrollToOutput()
-    },
-    onError: (error) => {
-      console.log(error)
-    },
+    }
   })
 
   // Functions
@@ -166,7 +170,7 @@ export default function MainForm() {
                         errors?.description && 'border-destructive'
                       )}
                       placeholder={
-                        placeholderObj[form.watch('mode')] ||
+                        placeholderData[form.watch('mode')] ||
                         'Enter Description....'
                       }
                       {...field}

@@ -8,7 +8,7 @@ import { Separator } from '@/components/ui/seprator'
 import { fontSansCD } from '@/lib/fonts'
 import { cn } from '@/lib/utils'
 
-export default function Nav() {
+export default function Navbar() {
   useEffect(() => {
     console.log(
       '%cCan%cWeBe!',
